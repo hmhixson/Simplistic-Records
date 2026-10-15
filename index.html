@@ -4,139 +4,330 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F5F3E9">
   <title>My Workflow Toolkit</title>
+
   <style>
     :root {
-      --primary: #0f766e;
-      --background: #f4f7fa;
-      --text: #203040;
-      --muted: #64748b;
+      --sage: #788A70;
+      --sage-dark: #596D52;
+      --sage-light: #E4E9DC;
+      --cream: #F5F3E9;
+      --ivory: #FFFDF7;
+      --forest: #344638;
+      --text: #39463A;
+      --muted: #788174;
+      --border: #DDE2D5;
+      --shadow: 0 5px 18px rgba(52, 70, 56, 0.06);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: var(--background);
+      background: var(--cream);
       color: var(--text);
+      line-height: 1.6;
     }
 
     header {
-      background: #123c46;
-      color: white;
-      padding: 22px 6%;
+      background: var(--forest);
+      color: var(--ivory);
+      padding: 30px 6%;
+      border-bottom: 4px solid var(--sage);
     }
 
-    header h1 { margin: 0 0 6px; font-size: 25px; }
-    header p { margin: 0; color: #d2e7e8; }
+    header h1 {
+      margin: 0 0 5px;
+      font-size: clamp(25px, 4vw, 34px);
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      margin: 0;
+      color: #D9E2D3;
+      font-size: 15px;
+    }
 
     nav {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      padding: 14px 6%;
-      background: white;
-      border-bottom: 1px solid #dce4ea;
+      gap: 9px;
+      padding: 15px 6%;
+      background: var(--ivory);
+      border-bottom: 1px solid var(--border);
     }
 
-    button, input, textarea {
+    button,
+    input,
+    textarea {
       font: inherit;
     }
 
     button {
       cursor: pointer;
-      border: 0;
-      border-radius: 8px;
-      padding: 10px 14px;
-      background: var(--primary);
+      border: 1px solid var(--sage);
+      border-radius: 9px;
+      padding: 10px 16px;
+      background: var(--sage);
       color: white;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    button:hover {
+      background: var(--sage-dark);
+      border-color: var(--sage-dark);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid #B4C5A7;
+      outline-offset: 2px;
     }
 
     nav button {
-      background: #edf5f4;
-      color: #17534e;
+      background: var(--sage-light);
+      border-color: var(--sage-light);
+      color: var(--forest);
     }
 
-    nav button.active { background: var(--primary); color: white; }
+    nav button:hover {
+      background: #D4DECA;
+      border-color: #D4DECA;
+    }
 
-    main { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
-    .panel { display: none; }
-    .panel.active { display: block; }
+    nav button.active {
+      background: var(--sage-dark);
+      border-color: var(--sage-dark);
+      color: white;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 35px auto;
+      padding: 0 22px;
+      min-height: 55vh;
+    }
+
+    h2 {
+      color: var(--forest);
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 16px;
-      margin: 20px 0;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 220px), 1fr)
+      );
+      gap: 18px;
+      margin: 24px 0;
     }
 
-    .card, .tool {
-      background: white;
-      padding: 22px;
-      border: 1px solid #e0e7ed;
-      border-radius: 14px;
+    .card,
+    .tool {
+      background: var(--ivory);
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
     }
 
-    .card h3, .tool h2 { margin-top: 0; }
-    .card p, .hint { color: var(--muted); line-height: 1.5; }
+    .card {
+      border-top: 3px solid var(--sage);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
 
-    .tool { max-width: 650px; margin-top: 18px; }
-    label { display: block; font-weight: 600; margin: 16px 0 7px; }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 9px 24px rgba(52, 70, 56, 0.1);
+    }
 
-    input, textarea {
+    .card h3 {
+      color: var(--forest);
+      margin-top: 0;
+      font-size: 19px;
+    }
+
+    .card p,
+    .hint {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .card button {
+      margin-top: 8px;
+    }
+
+    .tool {
+      max-width: 680px;
+      margin-top: 22px;
+    }
+
+    .tool h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin: 17px 0 7px;
+      color: var(--forest);
+    }
+
+    input,
+    textarea {
       display: block;
       width: 100%;
-      padding: 11px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      background: white;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: #FFFFFF;
+      color: var(--text);
     }
 
-    textarea { min-height: 130px; resize: vertical; }
-    .result { margin-top: 16px; font-weight: 700; color: var(--primary); }
-    .check { display: flex; gap: 10px; margin: 16px 0; font-weight: normal; }
-    .check input { width: auto; }
-    .note-output { margin-top: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+    input::placeholder,
+    textarea::placeholder {
+      color: #92998D;
+    }
 
-    footer { text-align: center; padding: 25px; color: var(--muted); font-size: 13px; }
+    input:focus,
+    textarea:focus {
+      border-color: var(--sage);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(120, 138, 112, 0.14);
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .result {
+      margin-top: 18px;
+      font-weight: 700;
+      color: var(--sage-dark);
+    }
+
+    .check {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      margin: 17px 0;
+      font-weight: normal;
+      line-height: 1.5;
+    }
+
+    .check input {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      accent-color: var(--sage-dark);
+      cursor: pointer;
+    }
+
+    .note-output {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 10px;
+      background: var(--sage-light);
+      color: var(--forest);
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      line-height: 1.7;
+    }
+
+    .note-output:empty {
+      display: none;
+    }
+
+    #copyNote {
+      margin-top: 12px;
+    }
+
+    #copyStatus {
+      color: var(--sage-dark);
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 20px;
+      margin-top: 45px;
+      background: #E9EBDD;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+    }
 
     @media (max-width: 500px) {
-      header { padding: 20px; }
-      main { padding: 0 14px; margin-top: 20px; }
-      nav { padding: 12px; }
+      header {
+        padding: 24px 20px;
+      }
+
+      nav {
+        padding: 12px 16px;
+        gap: 7px;
+      }
+
+      nav button {
+        padding: 9px 12px;
+        font-size: 14px;
+      }
+
+      main {
+        padding: 0 15px;
+        margin-top: 24px;
+      }
+
+      .card,
+      .tool {
+        padding: 19px;
+      }
     }
 
-    /* Sage & Cream theme */
-:root {
-  --sage-primary: #71856A;
-  --sage-background: #F5F5EC;
-  --sage-card: #FFFEF8;
-  --sage-highlight: #DCE5D3;
-  --sage-text: #354435;
-}
-
-body {
-  background-color: var(--sage-background) !important;
-  color: var(--sage-text) !important;
-}
-
-button {
-  background-color: var(--sage-primary);
-  color: #FFFFFF;
-  border-color: var(--sage-primary);
-}
-
-input,
-textarea,
-select {
-  background-color: var(--sage-card);
-  color: var(--sage-text);
-  border-color: var(--sage-highlight);
-}
-  
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
+
 <body>
   <header>
     <h1>My Workflow Toolkit</h1>
@@ -144,7 +335,9 @@ select {
   </header>
 
   <nav aria-label="Main navigation">
-    <button class="active" data-tab="home">Dashboard</button>
+    <button class="active" data-tab="home" aria-current="page">
+      Dashboard
+    </button>
     <button data-tab="calculator">Calculator</button>
     <button data-tab="workflow">Workflow</button>
     <button data-tab="notes">Note Builder</button>
@@ -161,11 +354,13 @@ select {
           <p>Multiply two numbers and view the result.</p>
           <button data-go="calculator">Open calculator</button>
         </div>
+
         <div class="card">
           <h3>☑️ Workflow</h3>
           <p>Track progress through a simple checklist.</p>
           <button data-go="workflow">Open workflow</button>
         </div>
+
         <div class="card">
           <h3>📝 Note Builder</h3>
           <p>Turn your form entries into a formatted note.</p>
@@ -176,16 +371,28 @@ select {
 
     <section id="calculator" class="panel">
       <h2>General Calculator</h2>
-      <p class="hint">A basic demonstration of interactive calculations.</p>
+      <p class="hint">
+        Enter two numbers to calculate their product.
+      </p>
 
       <div class="tool">
         <label for="numberA">First number</label>
-        <input id="numberA" type="number" step="any" placeholder="Enter a number">
+        <input
+          id="numberA"
+          type="number"
+          step="any"
+          placeholder="Enter a number"
+        >
 
         <label for="numberB">Second number</label>
-        <input id="numberB" type="number" step="any" placeholder="Enter a number">
+        <input
+          id="numberB"
+          type="number"
+          step="any"
+          placeholder="Enter a number"
+        >
 
-        <button id="calculate">Calculate total</button>
+        <button id="calculate">Calculate product</button>
         <p id="calcResult" class="result" aria-live="polite"></p>
       </div>
     </section>
@@ -195,32 +402,67 @@ select {
       <p>Check each step as you complete it.</p>
 
       <div class="tool">
-        <label class="check"><input type="checkbox"> Review the request</label>
-        <label class="check"><input type="checkbox"> Collect the required information</label>
-        <label class="check"><input type="checkbox"> Complete the task</label>
-        <label class="check"><input type="checkbox"> Review the final result</label>
+        <label class="check">
+          <input type="checkbox">
+          Review the request
+        </label>
 
-        <p id="progress" class="result">0 of 4 steps completed</p>
+        <label class="check">
+          <input type="checkbox">
+          Collect the required information
+        </label>
+
+        <label class="check">
+          <input type="checkbox">
+          Complete the task
+        </label>
+
+        <label class="check">
+          <input type="checkbox">
+          Review the final result
+        </label>
+
+        <p id="progress" class="result" aria-live="polite">
+          0 of 4 steps completed
+        </p>
+
         <button id="resetWorkflow">Reset checklist</button>
       </div>
     </section>
 
     <section id="notes" class="panel">
       <h2>Note Builder</h2>
-      <p class="hint">Enter information to generate a draft you can copy.</p>
+      <p class="hint">
+        Enter information to generate a draft you can copy.
+      </p>
 
       <div class="tool">
         <label for="subject">Subject or case ID</label>
-        <input id="subject" placeholder="Enter a reference">
+        <input
+          id="subject"
+          placeholder="Enter a reference"
+        >
 
         <label for="summary">Summary</label>
-        <textarea id="summary" placeholder="Describe the situation..."></textarea>
+        <textarea
+          id="summary"
+          placeholder="Describe the situation..."
+        ></textarea>
 
         <label for="actions">Actions taken</label>
-        <textarea id="actions" placeholder="List the actions taken..."></textarea>
+        <textarea
+          id="actions"
+          placeholder="List the actions taken..."
+        ></textarea>
 
         <button id="buildNote">Generate note</button>
-        <div id="noteOutput" class="note-output"></div>
+
+        <div
+          id="noteOutput"
+          class="note-output"
+          aria-live="polite"
+        ></div>
+
         <button id="copyNote" hidden>Copy note</button>
         <p id="copyStatus" aria-live="polite"></p>
       </div>
@@ -236,16 +478,28 @@ select {
       });
 
       document.querySelectorAll("nav button").forEach(button => {
-        button.classList.toggle("active", button.dataset.tab === id);
+        const isActive = button.dataset.tab === id;
+
+        button.classList.toggle("active", isActive);
+
+        if (isActive) {
+          button.setAttribute("aria-current", "page");
+        } else {
+          button.removeAttribute("aria-current");
+        }
       });
     }
 
     document.querySelectorAll("[data-tab]").forEach(button => {
-      button.addEventListener("click", () => showTab(button.dataset.tab));
+      button.addEventListener("click", () => {
+        showTab(button.dataset.tab);
+      });
     });
 
     document.querySelectorAll("[data-go]").forEach(button => {
-      button.addEventListener("click", () => showTab(button.dataset.go));
+      button.addEventListener("click", () => {
+        showTab(button.dataset.go);
+      });
     });
 
     document.getElementById("calculate").addEventListener("click", () => {
@@ -262,20 +516,28 @@ select {
         "Result: " + (Number(a) * Number(b)).toLocaleString();
     });
 
-    const checks = [...document.querySelectorAll(
-      '#workflow input[type="checkbox"]'
-    )];
+    const checks = [
+      ...document.querySelectorAll(
+        '#workflow input[type="checkbox"]'
+      )
+    ];
 
     function updateProgress() {
       const done = checks.filter(check => check.checked).length;
+
       document.getElementById("progress").textContent =
         `${done} of ${checks.length} steps completed`;
     }
 
-    checks.forEach(check => check.addEventListener("change", updateProgress));
+    checks.forEach(check => {
+      check.addEventListener("change", updateProgress);
+    });
 
     document.getElementById("resetWorkflow").addEventListener("click", () => {
-      checks.forEach(check => check.checked = false);
+      checks.forEach(check => {
+        check.checked = false;
+      });
+
       updateProgress();
     });
 
@@ -297,6 +559,7 @@ select {
 
       document.getElementById("noteOutput").textContent = note;
       document.getElementById("copyNote").hidden = false;
+      document.getElementById("copyStatus").textContent = "";
     });
 
     document.getElementById("copyNote").addEventListener("click", async () => {
@@ -307,7 +570,8 @@ select {
         await navigator.clipboard.writeText(note);
         status.textContent = "Note copied!";
       } catch {
-        status.textContent = "Copy wasn't available. Select and copy the note manually.";
+        status.textContent =
+          "Copy wasn't available. Select and copy the note manually.";
       }
     });
   </script>
