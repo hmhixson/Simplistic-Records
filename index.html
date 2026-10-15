@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Workflow Toolkit</title>
+  <style>
+    :root {
+      --primary: #0f766e;
+      --background: #f4f7fa;
+      --text: #203040;
+      --muted: #64748b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    header {
+      background: #123c46;
+      color: white;
+      padding: 22px 6%;
+    }
+
+    header h1 { margin: 0 0 6px; font-size: 25px; }
+    header p { margin: 0; color: #d2e7e8; }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 14px 6%;
+      background: white;
+      border-bottom: 1px solid #dce4ea;
+    }
+
+    button, input, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      background: var(--primary);
+      color: white;
+    }
+
+    nav button {
+      background: #edf5f4;
+      color: #17534e;
+    }
+
+    nav button.active { background: var(--primary); color: white; }
+
+    main { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .card, .tool {
+      background: white;
+      padding: 22px;
+      border: 1px solid #e0e7ed;
+      border-radius: 14px;
+    }
+
+    .card h3, .tool h2 { margin-top: 0; }
+    .card p, .hint { color: var(--muted); line-height: 1.5; }
+
+    .tool { max-width: 650px; margin-top: 18px; }
+    label { display: block; font-weight: 600; margin: 16px 0 7px; }
+
+    input, textarea {
+      display: block;
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: white;
+    }
+
+    textarea { min-height: 130px; resize: vertical; }
+    .result { margin-top: 16px; font-weight: 700; color: var(--primary); }
+    .check { display: flex; gap: 10px; margin: 16px 0; font-weight: normal; }
+    .check input { width: auto; }
+    .note-output { margin-top: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+    footer { text-align: center; padding: 25px; color: var(--muted); font-size: 13px; }
+
+    @media (max-width: 500px) {
+      header { padding: 20px; }
+      main { padding: 0 14px; margin-top: 20px; }
+      nav { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Workflow Toolkit</h1>
+    <p>Your workspace for calculations, checklists, and notes.</p>
+  </header>
+
+  <nav aria-label="Main navigation">
+    <button class="active" data-tab="home">Dashboard</button>
+    <button data-tab="calculator">Calculator</button>
+    <button data-tab="workflow">Workflow</button>
+    <button data-tab="notes">Note Builder</button>
+  </nav>
+
+  <main>
+    <section id="home" class="panel active">
+      <h2>Welcome to your toolkit</h2>
+      <p>Choose a tool to get started.</p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>🧮 Calculator</h3>
+          <p>Multiply two numbers and view the result.</p>
+          <button data-go="calculator">Open calculator</button>
+        </div>
+        <div class="card">
+          <h3>☑️ Workflow</h3>
+          <p>Track progress through a simple checklist.</p>
+          <button data-go="workflow">Open workflow</button>
+        </div>
+        <div class="card">
+          <h3>📝 Note Builder</h3>
+          <p>Turn your form entries into a formatted note.</p>
+          <button data-go="notes">Create a note</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="panel">
+      <h2>General Calculator</h2>
+      <p class="hint">A basic demonstration of interactive calculations.</p>
+
+      <div class="tool">
+        <label for="numberA">First number</label>
+        <input id="numberA" type="number" step="any" placeholder="Enter a number">
+
+        <label for="numberB">Second number</label>
+        <input id="numberB" type="number" step="any" placeholder="Enter a number">
+
+        <button id="calculate">Calculate total</button>
+        <p id="calcResult" class="result" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section id="workflow" class="panel">
+      <h2>Example Workflow</h2>
+      <p>Check each step as you complete it.</p>
+
+      <div class="tool">
+        <label class="check"><input type="checkbox"> Review the request</label>
+        <label class="check"><input type="checkbox"> Collect the required information</label>
+        <label class="check"><input type="checkbox"> Complete the task</label>
+        <label class="check"><input type="checkbox"> Review the final result</label>
+
+        <p id="progress" class="result">0 of 4 steps completed</p>
+        <button id="resetWorkflow">Reset checklist</button>
+      </div>
+    </section>
+
+    <section id="notes" class="panel">
+      <h2>Note Builder</h2>
+      <p class="hint">Enter information to generate a draft you can copy.</p>
+
+      <div class="tool">
+        <label for="subject">Subject or case ID</label>
+        <input id="subject" placeholder="Enter a reference">
+
+        <label for="summary">Summary</label>
+        <textarea id="summary" placeholder="Describe the situation..."></textarea>
+
+        <label for="actions">Actions taken</label>
+        <textarea id="actions" placeholder="List the actions taken..."></textarea>
+
+        <button id="buildNote">Generate note</button>
+        <div id="noteOutput" class="note-output"></div>
+        <button id="copyNote" hidden>Copy note</button>
+        <p id="copyStatus" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>My Workflow Toolkit · Personal project</footer>
+
+  <script>
+    function showTab(id) {
+      document.querySelectorAll(".panel").forEach(panel => {
+        panel.classList.toggle("active", panel.id === id);
+      });
+
+      document.querySelectorAll("nav button").forEach(button => {
+        button.classList.toggle("active", button.dataset.tab === id);
+      });
+    }
+
+    document.querySelectorAll("[data-tab]").forEach(button => {
+      button.addEventListener("click", () => showTab(button.dataset.tab));
+    });
+
+    document.querySelectorAll("[data-go]").forEach(button => {
+      button.addEventListener("click", () => showTab(button.dataset.go));
+    });
+
+    document.getElementById("calculate").addEventListener("click", () => {
+      const a = document.getElementById("numberA").value;
+      const b = document.getElementById("numberB").value;
+      const output = document.getElementById("calcResult");
+
+      if (a.trim() === "" || b.trim() === "") {
+        output.textContent = "Please enter both numbers.";
+        return;
+      }
+
+      output.textContent =
+        "Result: " + (Number(a) * Number(b)).toLocaleString();
+    });
+
+    const checks = [...document.querySelectorAll(
+      '#workflow input[type="checkbox"]'
+    )];
+
+    function updateProgress() {
+      const done = checks.filter(check => check.checked).length;
+      document.getElementById("progress").textContent =
+        `${done} of ${checks.length} steps completed`;
+    }
+
+    checks.forEach(check => check.addEventListener("change", updateProgress));
+
+    document.getElementById("resetWorkflow").addEventListener("click", () => {
+      checks.forEach(check => check.checked = false);
+      updateProgress();
+    });
+
+    document.getElementById("buildNote").addEventListener("click", () => {
+      const subject = document.getElementById("subject").value.trim();
+      const summary = document.getElementById("summary").value.trim();
+      const actions = document.getElementById("actions").value.trim();
+
+      const note = [
+        "WORKFLOW NOTE",
+        "Subject: " + (subject || "Not provided"),
+        "",
+        "Summary:",
+        summary || "Not provided",
+        "",
+        "Actions taken:",
+        actions || "Not provided"
+      ].join("\n");
+
+      document.getElementById("noteOutput").textContent = note;
+      document.getElementById("copyNote").hidden = false;
+    });
+
+    document.getElementById("copyNote").addEventListener("click", async () => {
+      const note = document.getElementById("noteOutput").textContent;
+      const status = document.getElementById("copyStatus");
+
+      try {
+        await navigator.clipboard.writeText(note);
+        status.textContent = "Note copied!";
+      } catch {
+        status.textContent = "Copy wasn't available. Select and copy the note manually.";
+      }
+    });
+  </script>
+</body>
+</html>
