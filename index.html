@@ -11,7 +11,6 @@
 <p class="hint">Select the risks discussed with the owner, then generate editable medical record text.</p>
 <div class="tool consent-tool">
 <div class="consent-actions">
-<button id="consentDefaults" type="button">Recommended defaults</button>
 <button id="consentSelectAll" type="button">Select all</button>
 <button id="consentClearAll" type="button">Clear all</button>
 <button id="consentReset" type="button">Reset</button>
@@ -65,10 +64,10 @@
     // ============================================================
     const consentGroups = [
       { name: "Diagnostics & Hospitalization", items: [
-        ["Diagnostic testing", "The potential risks and limitations of diagnostic testing were discussed, including the possibility of inconclusive findings or the need for additional testing."],
-        ["Sedation and anesthesia", "Risks associated with sedation or anesthesia were discussed, including cardiopulmonary complications, adverse drug reactions, and death."],
-        ["Hospitalization", "Risks associated with hospitalization were discussed, including changes in clinical status and complications that may require additional interventions."],
-        ["Blood or plasma transfusions", "Potential transfusion reactions and other complications associated with blood product administration were discussed."]
+        ["Sedation", "Sedation: sedation risks include adverse reactions to medications (ranging from mild reactions to severe allergic reactions, including anaphylaxis), excessive or prolonged sedation (which may require additional monitoring or hospitalization), agitation or disorientation during recovery, low blood pressure, body temperature, or heart rate, abnormal heart rhythms, difficulty maintaining adequate oxygen levels or breathing during sedation or recovery (which may require additional oxygen support or further airway intervention), gastrointestinal signs following sedation (including vomiting, diarrhea, regurgitation, or changes in appetite), aspiration pneumonia, and cardiac or respiratory arrest, which may result in death."],
+        ["Anesthesia", "Anesthesia: anesthetic risks include adverse reactions to  medications (ranging from mild reactions to severe allergic reactions, including anaphylaxis), irritation or injury to the trachea associated with endotracheal intubation (which may result in coughing or other respiratory signs following), aspiration pneumonia, delayed recovery from anesthesia (which may require overnight hospitalization), agitation or disorientation during recovery, low blood pressure, body temperature, or heart rate during anesthesia, abnormal heart rhythms, difficulty maintaining adequate oxygen levels during anesthesia or recovery (which may require additional oxygen support during the recovery period), gastrointestinal signs following anesthesia (including vomiting, diarrhea, regurgitation, or changes in appetite), inflammation or injury to the esophagus associated with regurgitation (including future stricture formation), acute kidney injury, drying of the eyes or development of corneal ulcers, complications associated with intravenous catheter placement (such as bruising, swelling, or inflammation), and cardiac or respiratory arrest, which may result in death."],
+        ["Blood or Plasma Transfusions", "Blood or Plasma Transfusions: the most common reaction to blood product transfusions is the development of a temporary fever, which may require the transfusion to be administered at a slower rate or additional supportive therapies to be provided. However, more severe transfusion reactions can occur, including allergic reactions (ranging from mild reactions, such as hives or facial swelling, to severe reactions, including anaphylaxis), acute hemolytic transfusion reactions (in which transfused red blood cells are destroyed due to incompatibility between donor and recipient blood), transfusion-related acute lung injury, and fluid overload associated with administration of the blood product (which may result in difficulty breathing, fluid accumulation in the lungs, or the need for supplemental oxygen). Additionally, delayed transfusion reactions can occur, with clinical signs developing from 24 hours to up to 28 days after administration of the blood product. The number of blood products a patient may require cannot always be predicted in advance, and additional transfusions may be needed depending on their clinical status and response to treatment."]
+          
       ]},
       { name: "Procedures", items: [
         ["Fine needle aspirates", "Risks associated with fine needle aspiration, including bleeding, discomfort, and nondiagnostic sampling, were discussed."],
@@ -85,11 +84,10 @@
 
     const consentTemplates = consentGroups.flatMap((group, gi) =>
       group.items.map(([name, body], i) => ({
-        id: `consent-${gi}-${i}`, group: group.name, name, body,
-        selectedByDefault: gi === 0 && i < 3
+        id: `consent-${gi}-${i}`, group: group.name, name, body
       }))
     );
-    let selectedConsentIds = new Set(consentTemplates.filter(t => t.selectedByDefault).map(t => t.id));
+    let selectedConsentIds = new Set();
     function renderConsentChoices() {
       const container = document.getElementById("consentChoices");
       container.replaceChildren();
@@ -127,11 +125,10 @@
       selectedConsentIds = new Set(consentTemplates.filter(predicate).map(t => t.id));
       renderConsentChoices();
     }
-    document.getElementById("consentDefaults").onclick = () => setConsentSelection(t => t.selectedByDefault);
     document.getElementById("consentSelectAll").onclick = () => setConsentSelection(() => true);
     document.getElementById("consentClearAll").onclick = () => setConsentSelection(() => false);
     document.getElementById("consentReset").onclick = () => {
-      setConsentSelection(t => t.selectedByDefault);
+      setConsentSelection(() => false);
       document.getElementById("consentResult").hidden = true;
       document.getElementById("consentText").value = "";
     };
