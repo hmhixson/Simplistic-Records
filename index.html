@@ -5,13 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#F5F3E9">
+
   <title>My Workflow Toolkit</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- DM Sans font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    /* SAGE & CREAM COLOR PALETTE */
     :root {
       --sage: #788A70;
       --sage-dark: #596D52;
@@ -25,6 +28,7 @@
       --shadow: 0 5px 18px rgba(52, 70, 56, 0.06);
     }
 
+    /* GLOBAL STYLES */
     * {
       box-sizing: border-box;
     }
@@ -35,34 +39,6 @@
       background: var(--cream);
       color: var(--text);
       line-height: 1.6;
-    }
-
-    header {
-      background: var(--forest);
-      color: var(--ivory);
-      padding: 30px 6%;
-      border-bottom: 4px solid var(--sage);
-    }
-
-    header h1 {
-      margin: 0 0 5px;
-      font-size: clamp(25px, 4vw, 34px);
-      letter-spacing: -0.5px;
-    }
-
-    header p {
-      margin: 0;
-      color: #D9E2D3;
-      font-size: 15px;
-    }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      padding: 15px 6%;
-      background: var(--ivory);
-      border-bottom: 1px solid var(--border);
     }
 
     button,
@@ -77,7 +53,7 @@
       border-radius: 9px;
       padding: 10px 16px;
       background: var(--sage);
-      color: white;
+      color: #FFFFFF;
       font-weight: 600;
       transition: background 0.2s, transform 0.2s;
     }
@@ -98,6 +74,37 @@
       outline-offset: 2px;
     }
 
+    /* HEADER */
+    header {
+      background: var(--forest);
+      color: var(--ivory);
+      padding: 30px 6%;
+      border-bottom: 4px solid var(--sage);
+    }
+
+    header h1 {
+      margin: 0 0 5px;
+      font-size: clamp(26px, 4vw, 34px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      margin: 0;
+      color: #D9E2D3;
+      font-size: 15px;
+    }
+
+    /* NAVIGATION */
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      padding: 15px 6%;
+      background: var(--ivory);
+      border-bottom: 1px solid var(--border);
+    }
+
     nav button {
       background: var(--sage-light);
       border-color: var(--sage-light);
@@ -112,9 +119,10 @@
     nav button.active {
       background: var(--sage-dark);
       border-color: var(--sage-dark);
-      color: white;
+      color: #FFFFFF;
     }
 
+    /* MAIN CONTENT */
     main {
       max-width: 1050px;
       margin: 35px auto;
@@ -125,6 +133,7 @@
     h2 {
       color: var(--forest);
       font-size: 25px;
+      font-weight: 600;
       margin-bottom: 8px;
     }
 
@@ -148,6 +157,7 @@
       }
     }
 
+    /* DASHBOARD CARDS */
     .cards {
       display: grid;
       grid-template-columns: repeat(
@@ -181,6 +191,7 @@
       color: var(--forest);
       margin-top: 0;
       font-size: 19px;
+      font-weight: 600;
     }
 
     .card p,
@@ -193,6 +204,7 @@
       margin-top: 8px;
     }
 
+    /* TOOLS AND FORMS */
     .tool {
       max-width: 680px;
       margin-top: 22px;
@@ -237,18 +249,20 @@
       resize: vertical;
     }
 
+    /* CALCULATOR */
     .result {
       margin-top: 18px;
       font-weight: 700;
       color: var(--sage-dark);
     }
 
+    /* WORKFLOW CHECKLIST */
     .check {
       display: flex;
       align-items: flex-start;
       gap: 11px;
       margin: 17px 0;
-      font-weight: normal;
+      font-weight: 400;
       line-height: 1.5;
     }
 
@@ -256,11 +270,12 @@
       width: 17px;
       height: 17px;
       flex-shrink: 0;
-      margin-top: 3px;
+      margin-top: 4px;
       accent-color: var(--sage-dark);
       cursor: pointer;
     }
 
+    /* NOTE BUILDER */
     .note-output {
       margin-top: 18px;
       padding: 16px;
@@ -285,6 +300,7 @@
       font-size: 14px;
     }
 
+    /* FOOTER */
     footer {
       text-align: center;
       padding: 25px 20px;
@@ -295,6 +311,7 @@
       font-size: 13px;
     }
 
+    /* MOBILE LAYOUT */
     @media (max-width: 500px) {
       header {
         padding: 24px 20px;
@@ -348,6 +365,7 @@
   </nav>
 
   <main>
+    <!-- DASHBOARD -->
     <section id="home" class="panel active">
       <h2>Welcome to your toolkit</h2>
       <p>Choose a tool to get started.</p>
@@ -373,6 +391,7 @@
       </div>
     </section>
 
+    <!-- CALCULATOR -->
     <section id="calculator" class="panel">
       <h2>General Calculator</h2>
       <p class="hint">
@@ -401,6 +420,7 @@
       </div>
     </section>
 
+    <!-- WORKFLOW CHECKLIST -->
     <section id="workflow" class="panel">
       <h2>Example Workflow</h2>
       <p>Check each step as you complete it.</p>
@@ -434,6 +454,7 @@
       </div>
     </section>
 
+    <!-- NOTE BUILDER -->
     <section id="notes" class="panel">
       <h2>Note Builder</h2>
       <p class="hint">
@@ -476,6 +497,7 @@
   <footer>My Workflow Toolkit · Personal project</footer>
 
   <script>
+    // NAVIGATION
     function showTab(id) {
       document.querySelectorAll(".panel").forEach(panel => {
         panel.classList.toggle("active", panel.id === id);
@@ -506,6 +528,7 @@
       });
     });
 
+    // CALCULATOR
     document.getElementById("calculate").addEventListener("click", () => {
       const a = document.getElementById("numberA").value;
       const b = document.getElementById("numberB").value;
@@ -520,6 +543,7 @@
         "Result: " + (Number(a) * Number(b)).toLocaleString();
     });
 
+    // WORKFLOW CHECKLIST
     const checks = [
       ...document.querySelectorAll(
         '#workflow input[type="checkbox"]'
@@ -545,6 +569,7 @@
       updateProgress();
     });
 
+    // NOTE BUILDER
     document.getElementById("buildNote").addEventListener("click", () => {
       const subject = document.getElementById("subject").value.trim();
       const summary = document.getElementById("summary").value.trim();
@@ -566,6 +591,7 @@
       document.getElementById("copyStatus").textContent = "";
     });
 
+    // COPY GENERATED NOTE
     document.getElementById("copyNote").addEventListener("click", async () => {
       const note = document.getElementById("noteOutput").textContent;
       const status = document.getElementById("copyStatus");
