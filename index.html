@@ -596,7 +596,7 @@ function renderChoices() {
         const subbox = document.createElement("fieldset");
         subbox.className = "discharge-medication-subgroup";
         const sublegend = document.createElement("legend");
-        sublegend.textContent = subcategory;
+        sublegend.textContent = subcategory === "Antibiotics" ? `Antibiotics (${items.length - items.filter(t => t.name === "Antibiotic monitoring").length} medications)` : subcategory;
         subbox.append(sublegend);
         if (items.length) addCheckboxes(subbox, items);
         else {
